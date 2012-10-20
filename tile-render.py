@@ -20,8 +20,7 @@ for arg in sys.argv:
 	
 	if (words[0] == 'file'):
 		file = words[1].split('.')[0]
-
-filepath = file + '.blend'
+		filepath = file + '.blend'
 
 print("Loading " + filepath + "...")
 

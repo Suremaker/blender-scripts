@@ -1,1 +1,1 @@
-blender -b tile.blend -P tile-render.py -- file=box.blend zooming=10 out=.\
+blender -b tile.blend -P tile-render.py -- file=long_grass.blend zooming=4 out=.\
