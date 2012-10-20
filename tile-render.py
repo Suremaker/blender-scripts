@@ -1,4 +1,4 @@
-import bpy, bgl, blf,sys 
+import bpy, bgl, blf,sys
 from bpy import data, ops, props, types, context
 
 print("Usage: blender -b template.blend -P tile-render.py -- [zooming=1] [out=e:/tmp/] file=file.blend")
@@ -25,8 +25,12 @@ for arg in sys.argv:
 print("Loading " + filepath + "...")
 
 with bpy.data.libraries.load(filepath) as (data_from, lib):
-	lib.objects = [name for name in data_from.objects]
+	lib.objects = [object for object in data_from.objects]
+	lib.scenes = [sc for sc in data_from.scenes]
 
+loaded_scene = lib.scenes[0]
+scene.frame_end = loaded_scene.frame_end
+	
 for obj in lib.objects:
 	print("Appending " + obj.name + "...")
 	scene.objects.link(obj)
@@ -34,6 +38,6 @@ for obj in lib.objects:
 for mul in range(1, zooming+1):
 	scene.render.resolution_x = baseX * mul
 	scene.render.resolution_y = baseY * mul
-	scene.render.filepath = out + file + "_" + str(baseX * mul) + "x" + str(baseY * mul)
-	print("Rendering " + scene.render.filepath + "...")
-	bpy.ops.render.render( write_still=True )
+	scene.render.filepath = out + file + "_" + str(baseX * mul) + "x" + str(baseY * mul) + "_"
+	print("Rendering " + scene.render.filepath + "...")	
+	bpy.ops.render.render( animation=True, write_still=True )
